@@ -1,0 +1,28 @@
+server:
+  port: 4567
+
+taxations:
+  inss:
+    values:
+      - salary: 1751.81
+        percent: 0.08
+      - salary: 2919.72
+        percent: 0.09
+      - salary: 5839.45
+        percent: 0.11
+    high: 642.34
+  irrf:
+    low: 1903.99
+    values:
+      - salary: 2826.65
+        percent: 0.075
+        subtract: 142.80
+      - salary: 3751.05
+        percent: 0.15
+        subtract: 354.80
+      - salary: 4664.68
+        percent: 0.225
+        subtract: 636.13
+    high: 0.275
+    subtract: 869.36
+
