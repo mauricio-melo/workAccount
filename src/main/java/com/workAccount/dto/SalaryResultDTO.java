@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 
@@ -17,6 +18,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @JsonInclude(NON_EMPTY)
 public class SalaryResultDTO {
     private BigDecimal salary;
-    private TributesDTO tributes;
+    private List<TributeDTO> tributes;
     private BigDecimal liquidSalary;
 }

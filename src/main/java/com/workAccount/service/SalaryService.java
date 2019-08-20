@@ -1,7 +1,7 @@
 package com.workAccount.service;
 
+import com.workAccount.dto.TributeDTO;
 import com.workAccount.dto.SalaryResultDTO;
-import com.workAccount.dto.TributesDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -11,21 +11,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.workAccount.constant.Tributes.INSS;
+import static com.workAccount.constant.Tributes.IRRF;
+
 @Service
 @RequiredArgsConstructor(onConstructor = @__({@Lazy}))
 public class SalaryService {
     private final TributesService tributesService;
 
     public SalaryResultDTO calculateSalary(final BigDecimal salary) {
-        final BigDecimal inss = this.tributesService.calculateInss(salary);
-        final BigDecimal irrf = this.tributesService.calculateIrrf(salary.subtract(inss));
+        final TributeDTO inss = TributeDTO.builder()
+                .name(INSS)
+                .value(this.tributesService.calculateInss(salary))
+                .build();
+
+        final TributeDTO irrf = TributeDTO.builder()
+                .name(IRRF)
+                .value(this.tributesService.calculateIrrf(salary.subtract(inss.getValue())))
+                .build();
+
         return SalaryResultDTO.builder()
                 .salary(salary)
-                .tributes(TributesDTO.builder()
-                        .inss(inss)
-                        .irrf(irrf)
-                        .build())
-                .liquidSalary(this.calculateLiquidSalary(salary, Arrays.asList(inss, irrf), new ArrayList<>()))
+                .tributes(Arrays.asList(inss, irrf))
+                .liquidSalary(this.calculateLiquidSalary(salary, Arrays.asList(inss.getValue(), irrf.getValue()), new ArrayList<>()))
                 .build();
     }
 

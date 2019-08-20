@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(NON_EMPTY)
-public class TributesDTO {
-    private BigDecimal inss;
-    private BigDecimal irrf;
+public class TributeDTO {
+    private String name;
+    private BigDecimal value;
 }
